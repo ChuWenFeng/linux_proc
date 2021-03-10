@@ -37,6 +37,15 @@ where
         self.buffer.clear();
         Ok(parsed)
     }
+
+    pub fn next_line(&mut self) -> Result<(),io::Error>{
+        let read = io::BufRead::read_line(&mut self.reader,&mut self.buffer)?;
+        if read == 0{
+            return Err(io::ErrorKind::UnexpectedEof.into());
+        }
+        self.buffer.clear();
+        Ok(())
+    }
 }
 
 pub fn parse_u64(input: &str) -> Option<(&str, u64)> {

@@ -5,6 +5,7 @@ pub mod diskstats;
 pub mod meminfo;
 pub mod stat;
 pub mod uptime;
+pub mod pidstat;
 mod util;
 
 use std::fmt;
