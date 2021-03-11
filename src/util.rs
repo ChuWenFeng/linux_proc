@@ -46,6 +46,22 @@ where
         self.buffer.clear();
         Ok(())
     }
+    
+    pub fn parse_or_skip<F,E,Val>(&mut self,parser:F)->Result<Val,io::Error>
+    where F:Fn(&str)->Result<Val,E>,
+        E:std::error::Error+Send+Sync+'static,
+        {
+            self.buffer.clear();
+            let read = io::BufRead::read_line(&mut self.reader,&mut self.buffer)?;
+            if read == 0 {
+                return Err(io::ErrorKind::UnexpectedEof.into());
+            }
+            let parsed= parser(&self.buffer)
+            .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, Box::new(e)));
+            self.buffer.clear();
+            return parsed;
+        }
+
 }
 
 pub fn parse_u64(input: &str) -> Option<(&str, u64)> {
