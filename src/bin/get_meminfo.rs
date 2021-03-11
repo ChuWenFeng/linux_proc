@@ -5,6 +5,6 @@ fn main(){
     // println!("{:?}",meminfo);
     // println!("memused:{}",meminfo.get_memused());
 
-    let pidstat = pidstat::PidStat::now(std::process::id() as u64).unwrap();
+    let pidstat = pidstat::PidStat::now(1).unwrap();
     println!("{:?}",pidstat);
 }

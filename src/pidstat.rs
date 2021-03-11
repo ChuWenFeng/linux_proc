@@ -84,7 +84,7 @@ impl PidStat{
         pidstat.VmSize = value[4];
         pidstat.VmHWM = value[5];
         pidstat.VmRSS = value[6];
-        pidstat.VmSize = value[7];
+        pidstat.VmSwap = value[7];
         pidstat.Threads = value[8];
 
 
